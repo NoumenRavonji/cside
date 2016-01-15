@@ -1,0 +1,58 @@
+<?php 
+
+$arr = $this->showList;
+$data = $this->data;
+$url = $this->url;
+$form = $this->form;
+
+$recordBaseUrl = $this->url(
+	$url['route'],
+	array(
+        'controller' => $url['controller'],
+        'action' => $url['action'],
+    )
+);
+?>
+<?php if(count($data)):?>
+<table class="tbl_type03 list">
+	<tr>
+		<?php foreach ($arr as $key => $value): ?>
+			<th class="$value"><?php echo $this->formLabel($form->get($key)); ?></th>
+		<?php endforeach;?>
+	</tr>
+	<?php foreach ($data as $record) :?>
+	<tr>
+		<?php $recordUrl = $recordBaseUrl.'/'.$record['id']; ?>
+		<?php foreach ($arr as $key => $value): ?>
+		<td>
+			<a href="<?php echo $recordUrl ; ?>">
+				<?php
+					$displayName = $record[$key];
+					if(!empty($this->displayFilter)){
+
+						$displayFilter = $this->displayFilter;
+						if(!empty($displayFilter[$key])){
+							$displayName = $displayFilter[$key][$displayName];
+						}
+					}
+				?>
+
+				<?php echo $displayName ; ?>
+
+				<?php
+					$decoratorValue = (!empty($this->decorator[$key])) ? $this->decorator[$key] : null;
+				?>
+
+				<?php echo $decoratorValue ; ?>
+
+
+			</a>
+		</td>
+		<?php endforeach;?>
+
+	</tr>
+	<?php endforeach; ?>
+</table>
+<?php else:?>
+<p>該当レコードが見つかりませんでした</p>
+<?php endif;?>

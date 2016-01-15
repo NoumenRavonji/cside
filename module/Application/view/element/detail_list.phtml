@@ -1,0 +1,39 @@
+<?php
+$arr = $this->detailList;
+$data = $this->data;
+$backButton = $this->backButton;
+$forwardButton = $this->forwardButton;
+?>
+
+<table class="tbl_type01 mb1e w100">
+	<?php foreach ($arr as $key => $value): ?>
+		<tr>
+			<th class="w25"><?php echo $key; ?></th>
+
+			<?php
+				$displayName = $this->data[$value];
+				if(!empty($this->displayFilter)){
+
+					$displayFilter = $this->displayFilter;
+					if(!empty($displayFilter[$value])){
+						$displayName = $displayFilter[$value][$displayName];
+					}
+				}
+			?>
+
+				<?php
+					$decoratorValue = (!empty($this->decorator[$value])) ? $this->decorator[$value] : null;
+				?>
+
+			<td class="w75"><?php echo $this->escapeHtml($displayName); ?> <?php echo $this->escapeHtml($decoratorValue); ?> </td>
+		</tr>
+	<?php endforeach;?>
+</table>
+<div class="ta_c">
+	<button onclick="location.href='<?php echo $this->getUrl($backButton['url']); ?>'">
+		<?php echo (!empty($backButton['name'])) ? $backButton['name'] : '戻る' ;?>
+	</button>
+	<button onclick="location.href='<?php echo $this->getUrl($forwardButton['url']); ?>'">
+		<?php echo (!empty($forwardButton['name'])) ? $forwardButton['name'] : '編集' ;?>
+	</button>
+</div>

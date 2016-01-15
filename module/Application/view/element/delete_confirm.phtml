@@ -1,0 +1,27 @@
+<?php
+	$recordCd = $this->recordCd;
+	$confirmButton = $this->confirmButton;
+	$cancelButton = $this->cancelButton;
+?>
+
+
+	<table style="text-align:center">
+		<tr>
+			<th colspan="2">
+		 		<b><?php echo $recordCd;?></b> 本当に削除しますか？
+			</th>
+		</tr>
+        <tr>
+			<td  style="text-align:right">
+				<br>
+				<form action="<?php echo $this->getUrl($confirmButton['url']); ?>" method="post">
+				<input type="submit" value="<?php echo (!empty($confirmButton['name'])) ? $confirmButton['name'] : '確認' ;?>" >
+				</form>
+			</td>
+        	<td  style="text-align:left">
+        		<br>
+        		<input type=button onclick="window.location.href='<?php echo $this->getUrl($cancelButton['url']); ?>'" value="<?php echo (!empty($cancelButton['name'])) ? $cancelButton['name'] : 'キャンセル' ;?>" >
+        	</td>
+		</tr>
+		
+	</table>

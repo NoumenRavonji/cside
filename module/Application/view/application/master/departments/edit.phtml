@@ -1,0 +1,43 @@
+<?php 
+	$topUrl = $this->url('application');
+	$previousPreviousUrl = $this->url('master').'/departments/index';
+	$previousUrl = $this->url('master').'/departments/show/'.$this->id;
+?>
+<ol id="plist" class="clearfix">
+
+	<li><a href="<?php echo $topUrl ?>">トップページ</a></li>
+	<li><a href="<?php echo $previousPreviousUrl ?>">部門一覧</a></li>
+	<li><a href="<?php echo $previousUrl ?>">部門詳細</a></li>
+	<li><span>部門編集</span></li>
+</ol>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('master').'/departments/update/'.$this->id);
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+?>
+
+<table class="tbl_type01 mb1e w100">
+	<tr>
+		<th class="w25">部門コード</th>
+		<td class="w75"><?php  echo $this->formRow($form->get('post_cd'));?></td>
+	</tr>
+	<tr>
+		<th>部門名</th>
+		<td class="w75"><?php  echo $this->formRow($form->get('post_name'));?></td>
+	</tr>
+	<tr>
+		<th>カタカナ</th>
+		<td class="w75"><?php  echo $this->formRow($form->get('post_kane'));?></td>
+	</tr>
+</table>
+
+<div class="ta_c">
+	<button onclick="location.href='<?php echo $previousUrl ;?>'">戻る</button>
+	<?php 
+		echo $this->formSubmit($form->get('submit'));
+		echo $this->form()->closeTag();
+	?>
+</div>

@@ -1,0 +1,79 @@
+<?php 
+$arr = $this->itemList;
+$form = $this->form;
+$backButton = $this->backButton;
+$forwardButton = $this->forwardButton;
+?>
+
+<?php
+$hasErrors = false;
+foreach ($arr as $value) {
+	if($this->formElementErrors($form->get($value))){
+		$hasErrors = true;
+		break;
+	}
+}
+?>
+<?php if($hasErrors):?>
+<div class="error">
+	<?php foreach ($arr as $value){
+		echo $this->formElementErrors()
+                ->setMessageOpenFormat('<ul><li>'.$this->formLabel($form->get($value)).':    ')
+                ->setMessageSeparatorString('<br/>')
+                ->setMessageCloseString('</li></ul>')
+                ->render($this->form->get($value));
+	}?>
+</div>
+<?php endif;?>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+		$forwardButton['url']['route'],
+		array(
+                'controller' => $forwardButton['url']['controller'],
+                'action' => $forwardButton['url']['action'],
+                'id' => (!empty($forwardButton['url']['id'])) ? $forwardButton['url']['id'] : null ,
+        )
+	)
+);
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+
+?>
+<table class="tbl_type01 mb1e w100">
+	<?php foreach ($arr as $value): ?>
+		<tr>
+			<th class="w25"><?php echo $this->formLabel($form->get($value)); ?></th>
+			<td class="w75">
+
+				<?php
+					$decoratorValue = (!empty($this->decorator[$value])) ? $this->decorator[$value] : null;
+				?>
+
+				<?php echo $this->formElement($form->get($value)); ?> 
+				<?php echo $decoratorValue; ?>
+			</td>
+		</tr>
+	<?php endforeach;?>
+</table>
+<div class="ta_c">
+
+		<?php if(empty($backButton['type'])): ?>
+		<!--
+			<button onclick="location.href='<?php //echo $this->getUrl($backButton['url']); ?>'">
+				<?php //echo (!empty($backButton['name'])) ? $backButton['name'] : '戻る' ;?>
+			</button>
+		-->
+			<input type=button onclick="window.location.href='<?php echo $this->getUrl($backButton['url']); ?>'" value="<?php echo (!empty($backButton['name'])) ? $backButton['name'] : '戻る' ;?>" >
+
+		<?php else: ;?>
+			<input type="submit" name ="submit" value="<?php echo (!empty($backButton['name'])) ? $backButton['name'] : '修正' ;?>" 
+			onclick="javascript:this.form.action='<?php echo $this->getUrl($backButton['url']); ?>';" >
+		<?php endif; ?>
+
+		<?php $form->get('submit')->setValue((!empty($forwardButton['name'])) ? $forwardButton['name'] : '編集');?>
+		<?php echo $this->formSubmit($form->get('submit')); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>

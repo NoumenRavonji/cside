@@ -1,0 +1,25 @@
+<?php 
+$arr = $this->errorList;
+$form = $this->form;
+?>
+
+<?php
+$hasErrors = false;
+foreach ($arr as $value) {
+	if($this->formElementErrors($form->get($value))){
+		$hasErrors = true;
+		break;
+	}
+}
+?>
+<?php if($hasErrors):?>
+<div class="error">
+	<?php foreach ($arr as $value){
+		echo $this->formElementErrors()
+                ->setMessageOpenFormat('<ul><li>'.$this->formLabel($form->get($value)).':    ')
+                ->setMessageSeparatorString('<br/>')
+                ->setMessageCloseString('</li></ul>')
+                ->render($this->form->get($value));
+	}?>
+</div>
+<?php endif;?>

@@ -1,0 +1,84 @@
+<?php 
+$form = $this->form;
+$message = $this->message;
+?>
+
+<?php
+$form->setAttribute('action', $this->url(
+		'application/default',
+		array(
+			'controller' => 'authentication',
+			'action' => 'login',
+		)
+	)
+);
+?>
+
+
+
+
+<!-- login_outline start -->
+<div id="login_outline">
+	<div id="login_form">
+		<h1>C-side System APP起動認証</h1>
+		<p>下記にメールアドレスとパスワードを入力してください</p>
+		<p>端末管理No　00001</p>
+
+
+
+
+
+
+		
+
+	<!-- form validation erros -->
+	<?php
+	$arr = array('staff_email','password');
+	$hasErrors = false;
+	foreach ($arr as $value) {
+		if($this->formElementErrors($form->get($value))){
+			$hasErrors = true;
+			break;
+		}
+	}
+	?>
+	<?php if($hasErrors):?>
+	<div class="error">
+		<?php foreach ($arr as $value){
+			echo $this->formElementErrors()
+	                ->setMessageOpenFormat('<ul><li>'.$this->formLabel($form->get($value)).':    ')
+	                ->setMessageSeparatorString('<br/>')
+	                ->setMessageCloseString('</li></ul>')
+	                ->render($this->form->get($value));
+		}?>
+	</div>
+	<?php endif;?>
+
+	<!-- login message -->
+	<?php if(strlen($message)):?>
+	<div class="error">
+		<?php echo $message; ?>
+	</div>
+	<?php endif;?>
+
+
+	<!-- login form -->
+	<?php echo $this->form()->openTag($form); ?>
+
+			<table class="w100">
+				<tr>
+					<th class="w40"><?php echo $this->formLabel($form->get('staff_email')); ?></th>
+					<td class="w60"><?php echo $this->formElement($form->get('staff_email')); ?></td>
+				</tr>
+				<tr>
+					<th><?php echo $this->formLabel($form->get('password')); ?></th>
+					<td><?php echo $this->formElement($form->get('password')); ?></td>
+				</tr>
+				<tr>
+					<td class="btn_area" colspan="2"><?php echo $this->formSubmit($form->get('submit')) ?></td>
+				</tr>
+			</table>
+		<?php echo $this->form()->closeTag(); ?>
+	</div>
+</div>
+<!-- //login_outline end -->

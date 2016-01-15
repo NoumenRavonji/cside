@@ -1,0 +1,16 @@
+<?php
+$tableName = $this->tableName;
+$addButton = $this->addButton;
+?>
+
+		<!-- add-waka -->
+		<ul class="split">
+			<li>
+				<h2><?php echo $tableName;?></h2>
+			</li>
+			<li class="add-new">
+				<a href="<?php echo $this->getUrl($addButton['url']);?>" class="a_btn">
+					<?php echo !empty($addButton['name']) ? $addButton['name'] : '新規追加';?>
+				</a>
+			</li>
+		</ul>

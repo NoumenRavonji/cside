@@ -1,0 +1,85 @@
+<?php
+$pageNavi = $this->pageNavi;
+$labels = array(
+    'of' => (!empty($this->labels['of'])) ? $this->labels['of'] :'of',
+    'First' => (!empty($this->labels['First'])) ? $this->labels['First'] : 'First',
+    'Previous' => (!empty($this->labels['Previous'])) ? $this->labels['Previous'] : '< Previous',
+    'Next' => (!empty($this->labels['Next'])) ? $this->labels['Next'] : 'Next >',
+    'Last' => (!empty($this->labels['Last'])) ? $this->labels['Last'] : 'Last',
+    'separator' => (!empty($this->labels['separator'])) ? $this->labels['separator'] : ' | ',
+);
+$url = $this->url;
+?>
+
+
+
+<?php if($pageNavi->pageCount):?>
+<div class="paginationControl">
+<?php echo $pageNavi->totalItemCount;?>  
+<?php echo $pageNavi->lastItemNumber;?>
+<?php echo $labels['of'];?> <?php echo $pageNavi->totalItemCount;?>
+
+<!-- First Page Link-->
+<?php if(isset($pageNavi->previous)):?>
+	<a href="<?php echo $this->url($url['route'],
+		array('controller' => $url['controller'], 'action' => $url['action'], 
+		'id' => $pageNavi->first));?> ">
+		<?php echo $labels['First'];?>
+	</a><?php echo $labels['separator'];?>
+<?php else:?>
+	<span class = "disable"><?php echo $labels['First'];?></span><?php echo $labels['separator'];?>
+<?php endif; ?>
+
+<!-- Previous Page Link-->
+<?php if(isset($pageNavi->previous)):?>
+	<a href="<?php echo $this->url($url['route'],
+		array('controller' => $url['controller'], 'action' => $url['action'], 
+		'id' => $pageNavi->previous));?> ">
+		<?php echo $labels['Previous'];?>
+		<!--&lt; Previous-->
+	</a><?php echo $labels['separator'];?>
+<?php else:?>
+	<span class = "disable"><?php echo $labels['Previous'];?></span><?php echo $labels['separator'];?>
+<?php endif; ?>
+
+<!-- Numbered Page Links-->
+<?php foreach ($pageNavi->pagesInRange as $page) :?>
+	<?php if($page != $pageNavi->current):?>
+	<a href="<?php echo $this->url($url['route'],
+		array('controller' => $url['controller'], 'action' => $url['action'], 
+		'id' => $page));?> ">
+		<?php echo $page ;?>
+	</a><?php echo $labels['separator'];?>
+	<?php else:?>
+		<?php echo $page;?><?php echo $labels['separator'];?>
+	<?php endif; ?>
+<?php endforeach;?>
+
+<!-- Next Page Link-->
+<?php if(isset($pageNavi->next)):?>
+	<a href="<?php echo $this->url($url['route'],
+		array('controller' => $url['controller'], 'action' => $url['action'], 
+		'id' => $pageNavi->next));?> ">
+		<?php echo $labels['Next'];?>
+	</a><?php echo $labels['separator'];?>
+<?php else:?>
+	<span class = "disable"><?php echo $labels['Next'];?></span><?php echo $labels['separator'];?>
+<?php endif; ?>
+
+<!-- Last Page Link-->
+<?php if(isset($pageNavi->next)):?>
+	<a href="<?php echo $this->url($url['route'],
+		array('controller' => $url['controller'], 'action' => $url['action'], 
+		'id' => $pageNavi->last));?> ">
+		<?php echo $labels['Last'];?>
+	</a><?php echo $labels['separator'];?>
+<?php else:?>
+	<span class = "disable"><?php echo $labels['Last'];?></span>
+<?php endif; ?>
+
+</div>
+<?php endif;?>
+
+
+
+

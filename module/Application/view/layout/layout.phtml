@@ -1,0 +1,167 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="ja" class="no-js">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0, user-scalable = no">
+        <title>C Side</title>
+        <!--<meta charset="utf-8">-->
+        <?php //echo $this->headTitle('cside')->setAutoEscape(false) ?>
+
+        <?php //echo $this->headMeta()
+            //->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            //->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                       // ->prependStylesheet($this->basePath('css/style.css'))
+                        //->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+                        //->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+                        ->prependStylesheet($this->basePath('css/default.css')) ?>
+
+        <!-- Scripts 
+        <script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>-->
+        <?php //echo $this->headScript()
+            //->prependFile($this->basePath('js/bootstrap.min.js'))
+            //->prependFile($this->basePath('js/jquery.min.js'))
+            //->prependFile($this->basePath('js/modalBox-min.js'))
+           // ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            //->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+
+
+
+
+    </head>
+    <body>
+
+
+            <!-- header start -->
+            <header>
+                <div id="header">
+                    <ul id="user">
+                        <li><?php echo date('Y年m月d日',time());?></li>
+                        <li>支局名：<?php echo $this->USER['branch_name'];?></li>
+                        <li>社員ID：<?php echo $this->USER['staff_cd'];?></li>
+                        <li>社員名：<?php echo $this->USER['staff_name'];?></li>
+                    </ul>
+                    <?php
+
+                        $logoutUrl = array(
+                            'route' => 'application/default',
+                            'controller' => 'Authentication',
+                            'action' => 'logout'
+                        );
+
+                    ?>
+                    <div id="logout"><a href="<?php echo $this->getUrl($logoutUrl); ?>"></a></div>
+                </div>
+            </header>
+            <!-- //header end -->
+
+            <!-- main start -->
+            <div id="main">
+
+
+                <!-- slidemenu start -->
+                <div class="slidemenu slidemenu-left">
+                    <nav class="slidemenu-body">
+                        <ul class="slidemenu-content">
+                            <li><a class="menu-item" href="index.html">トップページ</a></li>
+                            <li class="cate">
+                                <a class="menu-item" href="#">営業</a>
+                                <ul>
+                                    <li><a class="menu-item" href="client_sea.html">得意先検索</a></li>
+                                    <li><a class="menu-item" href="fm_sea.html">FM・広告枠検索</a></li>
+                                    <li><a class="menu-item" href="ad_list.html">担当広告一覧</a></li>
+                                    <li><a class="menu-item" href="media.html">媒体資料</a></li>
+                                    <li><a class="menu-item" href="case.html">事例紹介</a></li>
+                                    <li><a class="menu-item" href="response.html">レスポンス入力</a></li>
+                                    <li><a class="menu-item" href="photo.html">写真管理</a></li>
+                                </ul>
+                            </li>
+                            
+                            <li class="cate">
+                                <a class="menu-item" href="#">マスタ管理</a>
+                                <ul>
+                                    <li><a class="menu-item" href="bumon01.html">部門管理</a></li>
+                                    <li><a class="menu-item" href="eigyo01.html">営業所管理</a></li>
+                                    <li><a class="menu-item" href="eria01.html">エリア管理</a></li>
+                                    <li><a class="menu-item" href="kibo01.html">企業規模管理</a></li>
+                                    <li><a class="menu-item" href="tgyosyu01.html">得意先業種管理</a></li>
+                                    <li><a class="menu-item" href="baitai01.html">媒体管理</a></li>
+                                    <li><a class="menu-item" href="hakkan01.html">発刊管理</a></li>
+                                    <li><a class="menu-item" href="sukesute01.html">スケジュールステータス管理</a></li>
+                                    <li><a class="menu-item" href="koukokusize01.html">広告サイズ管理</a></li>
+                                    <li><a class="menu-item" href="nyuryoku01.html">入力フォーマット管理</a></li>
+                                    <li><a class="menu-item" href="input01.html">入力形式管理</a></li>
+                                    <li><a class="menu-item" href="input_list01.html">選択項目管理</a></li>
+                                    <li><a class="menu-item" href="tokui01.html">得意先管理</a></li>
+                                    <li><a class="menu-item" href="ngword01.html">NGワード管理</a></li>
+                                    <li><a class="menu-item" href="koukokucpn01.html">広告クーポン注意書き管理</a></li>
+                                    <li><a class="menu-item" href="k_category01.html">広告カテゴリ管理</a></li>
+                                    <li><a class="menu-item" href="chuui01.html">広告申込書注意書き管理</a></li>
+                                </ul>
+                            </li>
+                            <li class="cate">
+                                <a class="menu-item" href="#">企画・テンプレート管理</a>
+                                <ul>
+                                    <li><a class="menu-item" href="tmpl_fmt01.html">テンプレートフォーマット管理</a></li>
+                                    <li><a class="menu-item" href="tmpl01.html">テンプレート管理</a></li>
+                                    <li><a class="menu-item" href="plan01.html">企画管理</a></li>
+                                </ul>
+                            </li>
+                            
+                            <li class="cate">
+                                <a class="menu-item" href="#">社員系</a>
+                                <ul>
+                                    <li><a class="menu-item" href="staff01.html">社員管理(管理本部)</a></li>
+                                    <li><a class="menu-item" href="yu-za-01.html">ユーザー権限管理</a></li>
+                                    <li><a class="menu-item" href="tanmatu.html">管理端末管理</a></li>
+                                    <li><a class="menu-item" href="pin01.html">PINコード発行(管理本部)</a></li>
+                                </ul>
+                            </li>
+                            <li class="cate">
+                                <a class="menu-item" href="#">仕入先・得意先</a>
+                                <ul>
+                                    <li><a class="menu-item" href="shiire01.html">仕入先管理</a></li>
+                                    <li><a class="menu-item" href="tokui01.html">得意先管理</a></li>
+                                </ul>
+                            </li>
+                            <li class="cate">
+                                <a class="menu-item" href="#">VC</a>
+                                <ul>
+                                    <li><a class="menu-item" href="vc01.html">VC管理</a></li>
+                                    <li><a class="menu-item" href="vc_tmpl_list01.html">VC向けテンプレート管理</a></li>
+                                </ul>
+                            </li>
+                            <li class="cate">
+                                <a class="menu-item" href="#">アクセスログ</a>
+                                <ul>
+                                    <li><a class="menu-item" href="access_pc.html">アクセスログ(PC)</a></li>
+                                    <li><a class="menu-item" href="access_ipad.html">アクセスログ(iPad)</a></li>
+                                    <li><a class="menu-item" href="access_vc.html">アクセスログ(VC)</a></li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </nav>
+                </div>
+                <!-- //slidemenu end -->
+
+                <!-- wrapper start -->
+                <div id="wrapper">
+                    <div class="container">
+                        <?php echo $this->content; ?>
+                        <!--<hr>
+                        <footer>
+                            <p>&copy; <?php echo date('Y') ?> by kiku Mamol.</p>
+                        </footer>
+                        -->
+                    </div> <!-- /container -->
+                </div>
+                <?php //echo $this->inlineScript() ?>
+            </div>
+    </body>
+</html>

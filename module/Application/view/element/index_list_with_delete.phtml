@@ -1,0 +1,90 @@
+<?php 
+
+$arr = $this->showList;
+$data = $this->data;
+$url = $this->url;
+
+$recordBaseUrl = $this->url(
+	$url['route'],
+	array(
+        'controller' => $url['controller'],
+        'action' => $url['action'],
+    )
+);
+?>
+
+<script language="javascript"> 
+    function delcfm(message,url) { 
+        if (confirm(message)) { 
+            window.location.href = url;
+        } 
+    } 
+</script>
+
+<?php if(count($data)):?>
+<table class="tbl_type03 list">
+	<tr>
+		<?php foreach ($arr as $key => $value): ?>
+			<th class="<?php echo $value?>"><?php echo $this->formLabel($form->get($key)); ?></th>
+		<?php endforeach;?>
+		<th class="w10"></th>
+	</tr>
+	<?php foreach ($data as $record) :?>
+	<?php $recordCd = null;?>
+	<?php $count = 0;?>
+	<tr>
+		<?php $recordUrl = $recordBaseUrl.'/'.$record['id']; ?>
+		<?php foreach ($arr as $key => $value): ?>
+		<td>
+			<?php 
+				if($count == 0){
+					$recordCd = $record[$key];
+				}
+				$count = $count + 1;
+			?>
+
+			<a href="<?php echo $recordUrl ; ?>">
+				<?php
+					$displayName = $record[$key];
+					if(!empty($this->displayFilter)){
+
+						$displayFilter = $this->displayFilter;
+						if(!empty($displayFilter[$key])){
+							$displayName = $displayFilter[$key][$displayName];
+						}
+					}
+				?>
+
+				<?php echo $displayName ; ?>
+
+				<?php
+					$decoratorValue = (!empty($this->decorator[$key])) ? $this->decorator[$key] : null;
+				?>
+
+				<?php echo $decoratorValue ; ?>
+			</a>
+		</td>
+		<?php endforeach;?>
+		<td>
+<?php 
+	$deleteUrl = $this->url(
+		$url['route'],
+		array(
+			'controller' => $url['controller'],
+			'action' => 'delete',
+			'id' => $record['id'],
+		)
+	);
+?>
+				<!--
+				<button onclick="delcfm('<?php// echo $recordCd ? $recordCd : "該当レコード" ?> 本当に削除しますか？', '<?php// echo $deleteUrl; ?>')" >削除</button>
+			-->
+			        		<input type=button onclick="window.location.href='<?php echo $deleteUrl; ?>'" value="削除" >
+		</td>
+
+	</tr>
+	<?php endforeach; ?>
+</table>
+<?php else:?>
+<p>該当レコードが見つかりませんでした</p>
+<?php endif;?>

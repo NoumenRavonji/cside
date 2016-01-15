@@ -1,0 +1,21 @@
+<ol id="plist" class="clearfix">
+	<li><a href=<?php echo $this->url('application') ?> >トップページ</a></li>
+	<li><span>部門一覧</span></li>
+</ol>
+
+<table class="tbl_type03 w100">
+	<tr>
+		<th class="w20">部門コード</th>
+		<th>部門名</th>
+	</tr>
+
+<?php foreach ($data as $record):?>
+	<tr>
+		<?php $url = $this->url('master').'/departments/show/'.$record['id'];?>
+		<td><a href="<?php echo $url ; ?>"><?php echo $record['post_cd']; ?></a></td>
+		<td><a href="<?php echo $url ; ?>"><?php echo $record['post_name']; ?></a></td>
+	</tr>
+<?php endforeach ?>
+
+
+</table>

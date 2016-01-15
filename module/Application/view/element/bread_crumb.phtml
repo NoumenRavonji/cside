@@ -1,0 +1,10 @@
+<?php
+$previousPage = $this->previousPage;
+$currentPage = $this->currentPage;
+?>
+<ol id="plist" class="clearfix">
+<?php foreach ($previousPage as $value): ?>
+	<li><a href="<?php echo $this->getUrl($value['url']);?>"><?php echo $value['name'];?></a></li>
+<?php endforeach;?>
+	<li><span><?php echo $currentPage;?></span></li>
+</ol>

@@ -1,0 +1,51 @@
+<?php 
+$arr = $this->searchItems;
+$form = $this->form;
+$searchButton = $this->searchButton;
+$num = 0;
+?>
+<?php
+$url = $searchButton['url'];
+$form->setAttribute('action', $this->url(
+	    $url['route'],
+	    array(
+	        'controller' => $url['controller'],
+	        'action' => $url['action'],
+	    )
+    )
+);
+
+echo $this->form()->openTag($form);
+?>
+<table class="tbl_type06 w100">
+	
+	<?php foreach ($arr as $value): ?>
+	
+	<?php if($num%2 == 0):?>
+	<tr>
+	<?php endif;?>
+	
+		<th class="w13"><?php echo $this->formLabel($form->get($value)); ?></th>
+		<td class="w32">
+			<?php if($form->get($value) instanceof \Zend\Form\Element\Text):?>
+			<?php $form->get($value)->setAttribute('class','w90'); ?>
+			<?php endif;?>
+			<?php echo $this->formElement($form->get($value)); ?>
+		</td>
+	
+	<?php// if( ((1 == count($arr)) && ($num == 0)) || ($num == 1) ): ?>
+	<?php if( ((1 == count($arr)) && ($num == 0)) || ($num == count($arr) - 1) ): ?>
+		<td class="w10 btn">
+			<?php $form->get('submit')->setValue( (!empty($searchButton['name'])) ? $searchButton['name'] : '検索' ) ;?>
+			<?php echo $this->formSubmit($form->get('submit')); ?>
+		</td>
+	<?php endif;?>
+	<?php $num = $num + 1;?>
+	<?php if($num%2 == 0):?>
+	</tr>
+	<?php endif;?>
+	
+	<?php endforeach;?>
+	
+</table>
+<?php echo $this->form()->closeTag(); ?>
